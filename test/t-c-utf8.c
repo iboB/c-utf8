@@ -62,12 +62,14 @@ void test_conversion(const uint32_t c32) {
     }
 
     // test min length
-    len = c_utf8_buf_to_utf32_char(&c32a, buf, buf + c8.len);
+    len = c_utf8_buf_to_utf32_char(&c32a, buf, buf + c8.len, &err);
+    TEST_ASSERT_EQUAL(0, err);
     TEST_ASSERT_EQUAL(c32, c32a);
     TEST_ASSERT_EQUAL(c8.len, len);
 
     // test past length
-    len = c_utf8_buf_to_utf32_char(&c32a, buf, buf + 5);
+    len = c_utf8_buf_to_utf32_char(&c32a, buf, buf + 5, &err);
+    TEST_ASSERT_EQUAL(0, err);
     TEST_ASSERT_EQUAL(c32, c32a);
     TEST_ASSERT_EQUAL(c8.len, len);
 }

@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: MIT
 //
 // DOC:
-// int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char* utf8_buf, const char* utf8_buf_end);
+// int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char* utf8_buf, const char* utf8_buf_end, int* opt_error);
 //      convert utf8 to a 32-bit unicode character
 //      return number of bytes processed from the input stream
-//      errors are silently ignored by skipping forward
+//      optional error argument is provided
+//      regardless of the error argument the function will never return 0
+//      at least 1 byte will always be skipped
 //
 // int c_utf32_char_to_utf8_buf(char* out_utf8_buf, const char* utf8_buf_end, const uint32_t char32);
 //      convert a 32-bit unicode character to utf8 string
@@ -156,14 +158,14 @@ C_UTF8_INLINE_FUNC int c_utf8_char_to_buf(char* out_utf8_buf, const char* utf8_b
     return char_utf8.len;
 }
 
-C_UTF8_INLINE_FUNC int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char* utf8_buf, const char* utf8_buf_end) {
+C_UTF8_INLINE_FUNC int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char* utf8_buf, const char* utf8_buf_end, int* opt_error) {
     char s[4] = C_UTF8_EMPTY_VAL;
     int i = 0;
     const char* ptr = utf8_buf;
     while (i < 4 && ptr != utf8_buf_end) {
         s[i++] = *ptr++;
     }
-    return c_utf8_buf_to_utf32_char_b(out_char32, s, NULL);
+    return c_utf8_buf_to_utf32_char_b(out_char32, s, opt_error);
 }
 
 C_UTF8_INLINE_FUNC int c_utf32_char_to_utf8_buf(char* out_utf8_buf, const char* utf8_buf_end, const uint32_t char32) {
