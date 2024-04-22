@@ -45,7 +45,7 @@ int utf8_buf_to_utf32_char_reuse(uint32_t* out_char32, const char* utf8_buf, con
     if (utf8_buf_end - utf8_buf < 4) {
         int i = 0;
         const char* ptr = utf8_buf;
-        while (i < 4 && ptr != utf8_buf_end) {
+        while (ptr != utf8_buf_end) {
             s[i++] = *ptr++;
         }
         utf8_buf = s;

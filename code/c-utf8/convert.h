@@ -160,10 +160,13 @@ C_UTF8_INLINE_FUNC int c_utf8_char_to_buf(char* out_utf8_buf, const char* utf8_b
 
 C_UTF8_INLINE_FUNC int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char* utf8_buf, const char* utf8_buf_end, int* opt_error) {
     char s[4] = C_UTF8_EMPTY_VAL;
-    int i = 0;
-    const char* ptr = utf8_buf;
-    while (i < 4 && ptr != utf8_buf_end) {
-        s[i++] = *ptr++;
+    if (utf8_buf_end - utf8_buf < 4) {
+        int i = 0;
+        const char* ptr = utf8_buf;
+        while (ptr != utf8_buf_end) {
+            s[i++] = *ptr++;
+        }
+        utf8_buf = s;
     }
     return c_utf8_buf_to_utf32_char_b(out_char32, s, opt_error);
 }
