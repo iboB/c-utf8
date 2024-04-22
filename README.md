@@ -19,4 +19,4 @@ The API documentation can be found in the header files
 
 The library is distributed under the MIT Software License. See LICENSE.txt for further details or copy [here](http://opensource.org/licenses/MIT).
 
-Copyright &copy; 2023 Borislav Stanimirov.
+Copyright &copy; 2023-2024 Borislav Stanimirov.
