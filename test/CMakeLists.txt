@@ -3,7 +3,7 @@
 #
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-include(./get_cpm.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/get_cpm.cmake)
 
 CPMAddPackage(gh:iboB/doctest-util@0.1.1)
 CPMAddPackage(gh:ThrowTheSwitch/Unity@2.5.2)
