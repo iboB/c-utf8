@@ -18,8 +18,9 @@ endif()
 
 option(C_UTF8_BUILD_TESTS "c-utf8: build tests" ${dev_mode})
 option(C_UTF8_BUILD_EXAMPLES "c-utf8: build examples" ${dev_mode})
+option(C_UTF8_BUILD_BENCHMARKS "c-utf8: build benchmarks" ${dev_mode})
 
-mark_as_advanced(C_UTF8_BUILD_TESTS C_UTF8_BUILD_EXAMPLES C_UTF8_BUILD_SCRATCH)
+mark_as_advanced(C_UTF8_BUILD_TESTS C_UTF8_BUILD_EXAMPLES C_UTF8_BUILD_SCRATCH C_UTF8_BUILD_BENCHMARKS)
 
 if(dev_mode)
     include(./dev.cmake)
@@ -36,3 +37,6 @@ endif()
 #~     add_subdirectory(example)
 #~ endif()
 
+if(C_UTF8_BUILD_BENCHMARKS)
+    add_subdirectory(bench)
+endif()
