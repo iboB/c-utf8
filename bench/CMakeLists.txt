@@ -26,7 +26,7 @@ function(c_utf8_benchmark name)
         # could we do something smarter here?
         target_compile_options(${tgt} PRIVATE -arch:AVX2)
     else()
-        target_compile_options(${tgt} PRIVATE -march:native)
+        target_compile_options(${tgt} PRIVATE -march=native)
     endif()
 
     add_custom_target(
