@@ -8,18 +8,18 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-set(CMAKE_LINK_DEPENDS_NO_SHARED ON)
+# misc config
+set(CMAKE_LINK_DEPENDS_NO_SHARED ON) # only relink exe is so interface changes
+set_property(GLOBAL PROPERTY USE_FOLDERS ON) # use solution folders
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # binaries to bin
 
 if(MSVC)
     # /Zc:preprocessor - incompatible with Windows.h
-    # /Zc:templateScope - TODO: add when msvc 17.5 is the norm
     add_compile_options(
-        /W4
-        -D_CRT_SECURE_NO_WARNINGS /Zc:__cplusplus /permissive-
-        /volatile:iso /Zc:throwingNew /utf-8 -DNOMINMAX=1
-        /wd4251 /wd4275
+        -W4
+        -D_CRT_SECURE_NO_WARNINGS -Zc:__cplusplus -permissive-
+        -volatile:iso -Zc:throwingNew -Zc:templateScope -utf-8 -DNOMINMAX=1
+        -wd4251 -wd4275
     )
 else()
     add_compile_options(-Wall -Wextra)
@@ -33,7 +33,7 @@ option(SAN_LEAK "${CMAKE_PROJECT_NAME}: sanitize leaks" OFF)
 
 if(MSVC)
     if(SAN_ADDR)
-        add_compile_options(/fsanitize=address)
+        add_compile_options(-fsanitize=address)
     endif()
     if(SAN_THREAD OR SAN_UB OR SAN_LEAK)
         message(WARNING "Unsupported sanitizers requested for msvc. Ignored")
@@ -64,6 +64,3 @@ else()
         add_link_options(${icm_san_flags})
     endif()
 endif()
-
-# all binaries to bin
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
