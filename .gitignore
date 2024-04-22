@@ -1,6 +1,10 @@
-build/
+# common build artefact dirs
 out/
+build/
 
-# ides
+# ides and editors
 .vscode/
 .vs/
+/CMakeSettings.json
+/CMakeUserPresets.json
+.~*
