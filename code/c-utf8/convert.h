@@ -168,7 +168,7 @@ C_UTF8_INLINE_FUNC int c_utf8_buf_to_utf32_char(uint32_t* out_char32, const char
         }
         utf8_buf = s;
     }
-    return c_utf8_buf_to_utf32_char_b(out_char32, s, opt_error);
+    return c_utf8_buf_to_utf32_char_b(out_char32, utf8_buf, opt_error);
 }
 
 C_UTF8_INLINE_FUNC int c_utf32_char_to_utf8_buf(char* out_utf8_buf, const char* utf8_buf_end, const uint32_t char32) {
