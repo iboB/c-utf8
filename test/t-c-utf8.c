@@ -103,6 +103,7 @@ void test_all(void) {
         uint32_t c32 = rand32_below(C_UTF32_MAX_CODEPOINT + 1);
         if (c32 < 127) continue; // tested above
         if (c32 >= 0xFFF0 && c32 <= 0xFFFF) continue; // specials
+        if (c32 >= 0xD800 && c32 <= 0xDFFF) continue; // surrogates
         test_conversion(c32);
         ++i;
     }

@@ -34,6 +34,7 @@ TEST_CASE("fuzz") {
     for (int i = 0; i < 100; ++i) {
         uint32_t c32 = rnd() % (UTF32_MAX_CODEPOINT + 1);
         if (c32 >= 0xFFF0 && c32 <= 0xFFFF) continue; // specials
+        if (c32 >= 0xD800 && c32 <= 0xDFFF) continue; // surrogates
         auto str = utf32_to_utf8_str(c32);
         int err;
         auto c32a = utf8_to_utf32(str, &err);
